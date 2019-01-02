@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Home from './Home.js';
-import { BrowserRouter as Router, Route,NavLink } from 'react-router-dom';
+
+
+import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
 
 class SignInForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
+        console.log("form sign in component",props);
 
         this.state = {
             email: '',
@@ -17,9 +20,6 @@ class SignInForm extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log("here");
     }
 
     handleChange(e) {
@@ -32,19 +32,23 @@ class SignInForm extends Component {
         });
     }
       nextPath(path) {
-        console.log("path",path);
         this.props.history.push(path);
+        document.location.reload(true);
       }
     handleSubmit(e) {
-        console.log('The form was submitted with the following data:');
+
         this.nextPath('/home');
     }
+
     render() {
         return (
-          <Router>
-        <div className="FormCenter">
 
-            <div className="FormField">
+
+        <div className="FormCenter" >
+
+          <form onSubmit={this.handleSubmit} className="FormFields">
+
+              <div className="FormField">
                 <label className="FormField__Label" htmlFor="email">E-Mail Address</label>
                 <input type="email" id="email" className="FormField__Input" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
               </div>
@@ -55,14 +59,13 @@ class SignInForm extends Component {
               </div>
 
               <div className="FormField">
-                  <button type="submit" onClick={this.handleSubmit} className="FormField__Button mr-20">Sign In</button> <Link to="/" className="FormField__Link">Create an account</Link>
+                  <button className="FormField__Button mr-20">Sign In</button> <Link to="/" className="FormField__Link">Create an account</Link>
               </div>
-
-              <Route exact path="/home" component={Home}/>
-
+              </form>
 
           </div>
-          </Router>
+
+
         );
     }
 }

@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class SignUpForm extends Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
+        console.log("form sign up component",props);
         this.state = {
             email: '',
             password: '',
@@ -26,7 +26,7 @@ class SignUpForm extends Component {
           [name]: value
         });
     }
-  
+
 
     handleSubmit(e) {
 

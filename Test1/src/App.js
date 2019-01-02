@@ -3,14 +3,26 @@ import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom'
 import SignUpForm from './pages/SignUpForm';
 import SignInForm from './pages/SignInForm';
 import Logo from './pages/Logo';
-import Home from './pages/Home'
+import Home from './pages/Home';
+import Sidebar from './pages/Sidebar';
 
 import './App.css';
 
 class App extends Component {
+
+    constructor(props)
+    {
+        super(props);
+        console.log("Props",props);
+
+    }
+
+
+
+
   render() {
     return (
-      <Router>
+       <Router>
         <div className="App">
           <div className="App__Aside">
 
@@ -29,6 +41,7 @@ class App extends Component {
 
               <Route exact path="/" component={SignUpForm}/>
               <Route path="/sign-in" component={SignInForm}/>
+
 
 
 
