@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-
+import {connect} from "react-redux";
+import Appdesign from './Appdesign';
 import { Link } from 'react-router-dom';
 
 class SignUpForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             email: '',
@@ -26,7 +27,7 @@ class SignUpForm extends Component {
           [name]: value
         });
     }
-  
+
 
     handleSubmit(e) {
 
@@ -36,14 +37,25 @@ class SignUpForm extends Component {
         this.refs.email.value="";
 
 
-        console.log('The form was submitted with the following data:');
-        console.log(this.state);
 
     }
 
     render() {
+      {
+        var top=0-(18*this.props.finalPos.y);
+        var left=this.props.finalPos.x-20;
+        var divStyle = {
+          marginTop:top,
+          marginLeft:left,
+          width:"400px"
+          };
+      }
+
+
         return (
-        <div className="FormCenter" >
+        <div>
+        <Appdesign/>
+        <div style={divStyle} >
             <form className="FormFields">
               <div className="FormField">
                 <label className="FormField__Label" htmlFor="name">Full Name</label>
@@ -69,8 +81,15 @@ class SignUpForm extends Component {
               </div>
             </form>
           </div>
+          </div>
         );
     }
 }
+function mapStateToProps(state)
+{
+  return{
+    finalPos:state.finals
+  }
+}
 
-export default SignUpForm;
+export default connect(mapStateToProps)(SignUpForm);

@@ -1,44 +1,54 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
-import SignUpForm from './pages/SignUpForm';
-import SignInForm from './pages/SignInForm';
-import Logo from './pages/Logo';
-import Home from './pages/Home'
-
+import {withRouter} from 'react-router';
+import {connect} from 'react-redux';
+import Appdesign from './pages/Appdesign';
+import {positionFinder} from './actions/posaction'
 import './App.css';
+import {bindActionCreators} from 'redux';
 
 class App extends Component {
+  constructor(props)
+  {
+      super(props);
+
+
+  }
+
   render() {
     return (
-      <Router>
-        <div className="App">
-          <div className="App__Aside">
+      <div>
+        <Appdesign/>
 
-              <Logo/>
-
-          </div>
-          <div className="App__Form">
-            <div className="PageSwitcher">
-                <NavLink to="/sign-in" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign In</NavLink>
-                <NavLink exact to="/" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
-              </div>
-
-              <div className="FormTitle">
-                  <NavLink to="/sign-in" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign In</NavLink> or <NavLink exact to="/" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
-              </div>
-
-              <Route exact path="/" component={SignUpForm}/>
-              <Route path="/sign-in" component={SignInForm}/>
+      </div>
 
 
-
-          </div>
-
-        </div>
-        </Router>
 
     );
   }
+  componentDidMount()
+  {
+      console.log("Test:-");
+      let position=document.getElementById("e1").getBoundingClientRect();
+      this.props.positionFinder(position);
+
+
+  }
+
+
+}
+function mapStateToProps(state)
+{
+    return{
+      pos:state.pos,
+      appState:state,
+
+
+    }
+}
+function matchDispatchToProps(dispatch)
+{
+  return bindActionCreators({positionFinder:positionFinder},dispatch);
 }
 
-export default App;
+export default connect(mapStateToProps,matchDispatchToProps)(App);
